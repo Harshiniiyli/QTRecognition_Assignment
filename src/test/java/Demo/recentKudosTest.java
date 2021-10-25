@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -16,6 +18,8 @@ import PkgForObject.SendKudosPage;
 
 public class recentKudosTest extends BaseMain{
 
+	public static Logger log = LogManager.getLogger(recentKudosTest.class.getName());
+
 	/*
 	 * to initialize browser
 	 * 
@@ -26,7 +30,8 @@ public class recentKudosTest extends BaseMain{
 		driver = initializingDRiver();
 		driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 		driver.get(prop.getProperty("url"));
-		
+		driver.manage().window().maximize();
+
 		LoginPage lp = new LoginPage(driver);
 		lp.getusername().sendKeys("harshini.iyli@qualitestgroup.com");
 		lp.getpassword().sendKeys("P@ssw0rd");
@@ -69,6 +74,7 @@ public class recentKudosTest extends BaseMain{
 		sendkudos.sendcomment().sendKeys("Appreciate your work");
 		sendkudos.clicksend();
 		System.out.println("kudos sent");
+		log.info("Kudos sent from recent contacts : working");
 		sendkudos.clickClose().click();
 	}
 	

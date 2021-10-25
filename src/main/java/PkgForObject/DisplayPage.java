@@ -15,6 +15,7 @@ public class DisplayPage {
 	By name = By.xpath("(//h5[@class='header-font-size'])[1]");
 	By image =By.xpath("//div[@class='container']/div[1]/div[1]/div/div[1]/img");
 	
+	
 	public DisplayPage(WebDriver driver) {
 
 		

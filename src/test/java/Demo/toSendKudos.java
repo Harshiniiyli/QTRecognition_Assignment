@@ -3,9 +3,12 @@ package Demo;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -18,7 +21,8 @@ import PkgForObject.SendKudosPage;
 
 public class toSendKudos extends BaseMain{
 	
-	
+	public static Logger log = LogManager.getLogger(toSendKudos.class.getName());
+
 	@BeforeTest
 	public void initialize() throws IOException
 	{
@@ -31,10 +35,11 @@ public class toSendKudos extends BaseMain{
 	 * To send kudos from activity page
 	 * 
 	 */
-	//@Test
+	@Test
 	public void testAThree() throws IOException, InterruptedException {
 		driver.get(prop.getProperty("url"));
-		
+		driver.manage().window().maximize();
+
 		LoginPage lp = new LoginPage(driver);
 		lp.getusername().sendKeys("harshini.iyli@qualitestgroup.com");
 		lp.getpassword().sendKeys("P@ssw0rd");
@@ -48,8 +53,11 @@ public class toSendKudos extends BaseMain{
 		Thread.sleep(3000);
 		WebElement down=sendkudos.enterfullemail();
 		
-		down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
-		down.sendKeys(Keys.ENTER);
+		Actions a=new Actions(driver);
+		
+		a.moveToElement(down).sendKeys(Keys.ARROW_DOWN,Keys.RETURN).build().perform();
+		//down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
+		//down.sendKeys(Keys.ENTER);
 
 	
 	List<WebElement> li =sendkudos.selecttrophy();
@@ -75,6 +83,7 @@ public class toSendKudos extends BaseMain{
 	System.out.println(driver.findElement(By.xpath("//*[@id='display_message']/span/center")).getText());
 	Thread.sleep(10000);
 	System.out.println(driver.findElement(By.xpath("//*[@id='display_message']/span/center")).getText());
+	log.info("Kudos sent successfully");
 	sendkudos.clickClose().click();
 	Thread.sleep(3000);
 	}
@@ -83,11 +92,12 @@ public class toSendKudos extends BaseMain{
 	 * Testcase to send multiple kudos type
 	 * 
 	 */
-	//@Test
+	@Test
 	public void testBMultiplekudos() throws InterruptedException {
 		
 		driver.get(prop.getProperty("url"));
-		
+		driver.manage().window().maximize();
+
 		LoginPage lp = new LoginPage(driver);
 		lp.getusername().sendKeys("harshini.iyli@qualitestgroup.com");
 		lp.getpassword().sendKeys("P@ssw0rd");
@@ -102,8 +112,12 @@ public class toSendKudos extends BaseMain{
 		sendkudos.enterEmail().sendKeys(Ename);
 		Thread.sleep(2000);
 		WebElement down=sendkudos.enterfullemail();
-		down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
-		down.sendKeys(Keys.ENTER);
+		
+		Actions a=new Actions(driver);
+		
+		a.moveToElement(down).sendKeys(Keys.ARROW_DOWN,Keys.RETURN).build().perform();
+		//down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
+		//down.sendKeys(Keys.ENTER);
 		
 		List<WebElement> li2 =sendkudos.selecttrophy();
 		for(WebElement list2: li2) {
@@ -134,8 +148,10 @@ public class toSendKudos extends BaseMain{
 		Thread.sleep(10000);
 		String errorMail =driver.findElement(By.xpath("//*[@id='display_message']/span/center")).getText();
 		System.out.println(errorMail);
+		log.error("Multiple kudos type selected : Failure");
+		log.error("Email not sent : Failure");
+
 		Assert.assertTrue(errorMail.equalsIgnoreCase("Mailer Error: SMTP connect() failed."));
-	
 		
 		sendkudos.clickClose().click();
 		Thread.sleep(3000);
@@ -151,7 +167,8 @@ public class toSendKudos extends BaseMain{
 	public void testCEmptyComents() throws InterruptedException {
 		
 		driver.get(prop.getProperty("url"));
-		
+		driver.manage().window().maximize();
+
 		LoginPage lp = new LoginPage(driver);
 		lp.getusername().sendKeys("harshini.iyli@qualitestgroup.com");
 		lp.getpassword().sendKeys("P@ssw0rd");
@@ -166,8 +183,12 @@ public class toSendKudos extends BaseMain{
 		sendkudos.enterEmail().sendKeys(Ename);
 		Thread.sleep(2000);
 		WebElement down=sendkudos.enterfullemail();
-		down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
-		down.sendKeys(Keys.ENTER);
+		
+		Actions a=new Actions(driver);
+		
+		a.moveToElement(down).sendKeys(Keys.ARROW_DOWN,Keys.RETURN).build().perform();
+		//down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
+		//down.sendKeys(Keys.ENTER);
 		
 		List<WebElement> li3 =sendkudos.selecttrophy();
 		for(WebElement list: li3) {
@@ -193,7 +214,7 @@ public class toSendKudos extends BaseMain{
 		String errorcomment =driver.findElement(By.xpath("//*[@id='display_message']/span/center")).getText();
 		System.out.println(errorcomment);
 		Assert.assertTrue(errorcomment.equalsIgnoreCase("Please enter any comment."));
-	
+		log.info("Please add comments : working properly ");
 		sendkudos.clickClose().click();
 		Thread.sleep(3000);
 		System.out.println("This test is working, please add comments");

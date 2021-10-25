@@ -4,15 +4,18 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
 
 import BasicPackage.BaseMain;
 import PkgForObject.DisplayPage;
@@ -23,7 +26,7 @@ import PkgForObject.SendKudosPage;
 
 public class OtherActivity extends BaseMain {
 
-	
+	public static Logger log = LogManager.getLogger(OtherActivity.class.getName());
 	/*To initialize the browser and login
 	 * 
 	 * 
@@ -34,7 +37,7 @@ public class OtherActivity extends BaseMain {
 		driver = initializingDRiver();
 		driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 		driver.get(prop.getProperty("url"));
-		
+		driver.manage().window().maximize();
 		LoginPage lp = new LoginPage(driver);
 		lp.getusername().sendKeys("harshini.iyli@qualitestgroup.com");
 		lp.getpassword().sendKeys("P@ssw0rd");
@@ -68,10 +71,12 @@ public class OtherActivity extends BaseMain {
 		
 		if(str1.equalsIgnoreCase("has sent an appreciation to")) {
 			System.out.println("has sent - true");
+			log.info(actual+" has sent an appreciation : Kudos from me");
 		}
 	}
 	else {
 		System.out.println("do not print");
+		log.error("Kudos from me : failure");
 	}
 	}
 	
@@ -97,10 +102,12 @@ public class OtherActivity extends BaseMain {
 		if(n1.contains(actual)) {
 			if(n2.equalsIgnoreCase("received an appreciation from")) {
 				System.out.println("true-  has received");
+				log.info(actual+" has received an appreciation : Kudos to me ");
 			}
 		}
 		else {
 			System.out.println("false");
+			log.error("Kudos to me : failure");
 		}
 
 	}
@@ -120,6 +127,7 @@ public class OtherActivity extends BaseMain {
 	
 		System.out.println(op.aCheckdisplaymedia().getText());
 		System.out.println(ksp.getmediaBox().isDisplayed());
+		log.info("Activity page working properly : Kudos displayed");
 	}
 	
 	/*
@@ -151,8 +159,11 @@ public class OtherActivity extends BaseMain {
 		sendkudos.enterEmail().sendKeys(Ename);
 		
 		WebElement down=sendkudos.enterfullemail();
-		down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
-		down.sendKeys(Keys.ENTER);
+		
+		Actions a=new Actions(driver);
+		
+		a.moveToElement(down).sendKeys(Keys.ARROW_DOWN,Keys.RETURN).build().perform();
+		
 		
 		List<WebElement> li2 =sendkudos.selecttrophy();
 		for(WebElement list2: li2) {
@@ -178,15 +189,22 @@ public class OtherActivity extends BaseMain {
 		System.out.println(mailerror);
 		
 		Assert.assertTrue(mailerror.equalsIgnoreCase("Mailer Error: SMTP connect() failed."));
-		
+		log.error("Kudos sent to oneself : error");
 		sendkudos.clickClose().click();
-		System.out.println("This test is wrong send kudos to oneself");
+		//System.out.println("This test is wrong send kudos to oneself");
 		driver.navigate().refresh();
 		op.clicktobtn().click();
 		op.clickActivity().click();
+		Thread.sleep(2000);
+		String nameTocheck = driver.findElement(By.xpath("//*[@id=\"0\"]/div/h5/b[1]")).getText();
+		String nameToself = driver.findElement(By.xpath("//*[@id='0']/div/h5/b[2]")).getText();
+		System.out.println(nameToself+ " is for cheking name");
+		System.out.println(nameTocheck);
+		Assert.assertTrue(nameToself.equals(nameTocheck));
+		System.out.println("This test is wrong send kudos to oneself");
 		Thread.sleep(4000);
-		System.out.println(op.countKudos());
-
+		System.out.println(op.countKudos() + " updated count");
+		log.info("Kudos count updated :"+ op.countKudos());
 
 	}
 	

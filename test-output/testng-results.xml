@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="12076" started-at="2021-10-20T13:23:44 IST" finished-at="2021-10-20T13:23:56 IST">
+  <suite name="Default suite" duration-ms="16927" started-at="2021-10-24T22:35:51 IST" finished-at="2021-10-24T22:36:08 IST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="12076" started-at="2021-10-20T13:23:44 IST" finished-at="2021-10-20T13:23:56 IST">
+    <test name="Default test" duration-ms="16927" started-at="2021-10-24T22:35:51 IST" finished-at="2021-10-24T22:36:08 IST">
       <class name="Demo.ToDisplayTest">
-        <test-method status="PASS" signature="testTwo()[pri:0, instance:Demo.ToDisplayTest@5bb21b69]" name="testTwo" duration-ms="11855" started-at="2021-10-20T13:23:44 IST" finished-at="2021-10-20T13:23:56 IST">
+        <test-method status="PASS" signature="testTwo()[pri:0, instance:Demo.ToDisplayTest@4988d8b8]" name="testTwo" duration-ms="15568" started-at="2021-10-24T22:35:51 IST" finished-at="2021-10-24T22:36:07 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testTwo -->
-        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:Demo.ToDisplayTest@5bb21b69]" name="closeBrowser" is-config="true" duration-ms="184" started-at="2021-10-20T13:23:56 IST" finished-at="2021-10-20T13:23:56 IST">
+        <test-method status="PASS" signature="closeBrowser()[pri:0, instance:Demo.ToDisplayTest@4988d8b8]" name="closeBrowser" is-config="true" duration-ms="1310" started-at="2021-10-24T22:36:07 IST" finished-at="2021-10-24T22:36:08 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closeBrowser -->

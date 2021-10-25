@@ -3,9 +3,11 @@ package Demo;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
@@ -18,6 +20,8 @@ import PkgForObject.LoginPage;
 
 public class toSearchKudosTest extends BaseMain {
 
+	public static Logger log = LogManager.getLogger(toSearchKudosTest.class.getName());
+
 	/*
 	 * to initialize browser
 	 * 
@@ -26,7 +30,7 @@ public class toSearchKudosTest extends BaseMain {
 	public void initialize() throws IOException
 	{
 		driver = initializingDRiver();
-		driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	/*
@@ -37,7 +41,8 @@ public class toSearchKudosTest extends BaseMain {
 	public void tFour() throws InterruptedException {
 		
 		driver.get(prop.getProperty("url"));
-		
+		driver.manage().window().maximize();
+
 		LoginPage lp = new LoginPage(driver);
 		lp.getusername().sendKeys("harshini.iyli@qualitestgroup.com");
 		lp.getpassword().sendKeys("P@ssw0rd");
@@ -53,11 +58,16 @@ public class toSearchKudosTest extends BaseMain {
 		String Ename= "Madhuri Kulkarni��(madhuri.kulkarni@qualitestgroup.com)";
 		
 		w.until(ExpectedConditions.visibilityOfElementLocated(ksp.waitsend()));
+		Thread.sleep(4000);
 		ksp.senEmail().sendKeys(Ename);
 		Thread.sleep(2000);
 		WebElement down=ksp.senEmail();
-		down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
-		down.sendKeys(Keys.ENTER);
+		Actions a=new Actions(driver);
+		
+		a.moveToElement(down).sendKeys(Keys.ARROW_DOWN,Keys.RETURN).build().perform();
+		
+		//down.sendKeys(Keys.ARROW_DOWN,Keys.RETURN);
+		//down.sendKeys(Keys.ENTER);
 		Thread.sleep(4000);
 		//w.until(ExpectedConditions.visibilityOfElementLocated(ksp.waitname()));
 		
@@ -81,6 +91,8 @@ public class toSearchKudosTest extends BaseMain {
 		else {
 			System.out.println("do not print");
 		}
+		
+		log.info("Kudos search is successful");
 	}
 	
 	@AfterTest

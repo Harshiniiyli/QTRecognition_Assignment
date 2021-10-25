@@ -3,13 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="Demo.OtherActivity">
+      <class name="Demo.ToDisplayTest">
         <methods>
-          <include name="testCSelfkudos"/>
-          <include name="initialize"/>
           <include name="closeBrowser"/>
+          <include name="testTwo"/>
         </methods>
-      </class> <!-- Demo.OtherActivity -->
+      </class> <!-- Demo.ToDisplayTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

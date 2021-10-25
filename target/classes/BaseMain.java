@@ -35,6 +35,7 @@ public class BaseMain {
 			
 		}
 		//driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+		
 		return driver;
 	}
 	

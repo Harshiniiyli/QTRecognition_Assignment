@@ -2,7 +2,8 @@ package Demo;
 
 import java.io.IOException;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
@@ -14,6 +15,8 @@ import PkgForObject.LoginPage;
 
 public class ToDisplayTest extends BaseMain {
 
+	public static Logger log = LogManager.getLogger(ToDisplayTest.class.getName());
+
 	/*
 	 * Testcase to check if username and profile image is displayed
 	 * 
@@ -23,7 +26,8 @@ public class ToDisplayTest extends BaseMain {
 		
 		driver = initializingDRiver();
 		driver.get(prop.getProperty("url"));
-		
+		driver.manage().window().maximize();
+
 		LoginPage lp = new LoginPage(driver);
 		lp.getusername().sendKeys("harshini.iyli@qualitestgroup.com");
 		lp.getpassword().sendKeys("P@ssw0rd");
@@ -34,9 +38,11 @@ public class ToDisplayTest extends BaseMain {
 		System.out.println(lp.title());
 		lp.title().equals("QTRecognition");
 		System.out.println(dp.showName().getText());
+		System.out.println(dp.showImg().isDisplayed());
+
 		Assert.assertTrue(dp.showName().isDisplayed());
 		Assert.assertTrue(dp.showImg().isDisplayed());
-
+		log.info("Username and profile :Displayed ");
 	}
 	
 	@AfterTest
